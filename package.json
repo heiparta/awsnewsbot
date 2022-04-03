@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "aws-cdk": "^2.19.0"
+  },
+  "name": "awsnewsbot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Heikki Partanen <heikki.partanen@gmail.com>",
+  "license": "MIT",
+  "description": ""
+}
