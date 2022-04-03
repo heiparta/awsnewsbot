@@ -13,6 +13,9 @@ python = "^3.10"
 feedparser = "^6.0.8"
 aws-cdk-lib = "^2.17.0"
 requests-oauthlib = "^1.3.1"
+constructs = "^10.0.104"
+awscli = "^1.22.87"
+boto3 = "^1.21.32"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.1"
@@ -20,6 +23,8 @@ mypy = "^0.941"
 flake8 = "^4.0.1"
 isort = "^5.10.1"
 black = "^22.1.0"
+types-requests = "^2.27.16"
+boto3-stubs = "^1.21.32"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

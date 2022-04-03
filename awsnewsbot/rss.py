@@ -1,16 +1,15 @@
-from datetime import datetime
 from time import mktime
 from typing import List, TypedDict
 
 import feedparser
 
 
-class FeedEntry(TypedDict):
+class FeedEntry(TypedDict, total=False):
     id: str
     title: str
     summary: str
     link: str
-    published: str
+    published: int
 
 
 class FeedReader:
@@ -25,9 +24,7 @@ class FeedReader:
                 "id": parsed_entry["id"],
                 "title": parsed_entry["title"],
                 "link": parsed_entry["link"],
-                "published": str(datetime.fromtimestamp(
-                    mktime(parsed_entry["published_parsed"]))
-                ),
+                "published": int(mktime(parsed_entry["published_parsed"])),
             }
             entries.append(entry)
         # We want to handle entries in ascending order

@@ -12,23 +12,19 @@ class Bot:
         self.db = db
         self.poster = poster
 
-    def run(self, max_new_entries: int = 5) -> None:
-        # Get existing entries
-        existing = [e['id'] for e in self.db.get_entries()]
+    def run(self) -> None:
+        # Get latest entry
+        latest = self.db.get_latest()
 
-        new_entries = []
-        for entry in self.feed.entries:
-            if entry["id"] in existing:
-                # Any entries appended BEFORE an existing entry also exist, so clear them
-                new_entries.clear()
-                continue
-            new_entries.append(entry)
-            if len(new_entries) >= max_new_entries:
-                break
+        if latest is None:
+            new_entries = self.feed.entries
+        else:
+            new_entries = [e for e in self.feed.entries if e["published"] > latest["published"]]
 
         # Post new entries
         self.poster.post_entries(new_entries)
         self.db.add_entries(new_entries)
+
 
 def main():
 
@@ -44,6 +40,7 @@ def main():
     bot = Bot(feed, db, poster)
     feed.entries = feed.entries
     bot.run()
+
 
 if __name__ == "__main__":
     main()

@@ -1,3 +1,18 @@
 __pycache__
 *.pyc
 *env.sh
+*.swp
+package-lock.json
+
+.pytest_cache
+.venv
+*.egg-info
+node_modules
+.vscode
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+data.bak
+data.json
