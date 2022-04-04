@@ -1,0 +1,5 @@
+ssm:
+    auth_prefix: /rssnewsbot/twitter
+    feed_prefix: /test/feeds
+feed_id: awsnews
+  

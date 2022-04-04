@@ -2,6 +2,7 @@ from requests_oauthlib import OAuth1
 from typing import List, Optional, Dict, Any
 from awsnewsbot.rss import FeedEntry
 
+import logging
 import requests
 
 TWEET_URL = "https://api.twitter.com/2/tweets"
@@ -27,4 +28,7 @@ class Poster:
                     "in_reply_to_tweet_id": previous_id,
                 }
             response = requests.post(auth=self.auth, url=TWEET_URL, json=payload)
+            if not response.ok:
+                logging.debug("Post response: %s: %s", response, response.json())
+            response.raise_for_status()
             previous_id = response.json()["data"]["id"]
