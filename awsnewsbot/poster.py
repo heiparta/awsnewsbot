@@ -15,7 +15,7 @@ class Poster:
     def post_entries(self, entries: List[FeedEntry]) -> None:
         if not entries:
             return
-        previous_id: Optional[str] = None
+        root_post_id: Optional[str] = None
         for i, entry in enumerate(entries, start=1):
             thread_suffix = ""
             if len(entries) > 1:
@@ -23,12 +23,13 @@ class Poster:
             payload: Dict[str, Any] = {
                 "text": f"{entry['title']} {entry['link']}{thread_suffix}",
             }
-            if previous_id:
+            if root_post_id:
                 payload["reply"] = {
-                    "in_reply_to_tweet_id": previous_id,
+                    "in_reply_to_tweet_id": root_post_id,
                 }
             response = requests.post(auth=self.auth, url=TWEET_URL, json=payload)
             if not response.ok:
                 logging.debug("Post response: %s: %s", response, response.json())
             response.raise_for_status()
-            previous_id = response.json()["data"]["id"]
+            if root_post_id is None:
+                root_post_id = response.json()["data"]["id"]
