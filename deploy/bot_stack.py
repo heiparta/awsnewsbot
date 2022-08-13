@@ -2,9 +2,11 @@ import aws_cdk as cdk
 from aws_cdk import (
     Stack,
 )
+from aws_cdk.aws_cloudwatch_actions import SnsAction
 from aws_cdk.aws_lambda import Function, AssetCode, Runtime
 from aws_cdk.aws_iam import PolicyStatement, Effect
 from aws_cdk.aws_events import Rule, Schedule
+from aws_cdk.aws_sns import Topic
 from aws_cdk.aws_events_targets import LambdaFunction
 from constructs import Construct
 from pathlib import Path
@@ -61,3 +63,11 @@ class BotStack(Stack):
             targets=[lambda_target],
         )
 
+        self.sns_topic = Topic(self, "AlertTopic")
+        self.errors_alarm = self.bot.metric_errors().create_alarm(
+            self,
+            "LambdaErrorAlarm",
+            evaluation_periods=3,
+            threshold=1,
+        )
+        self.errors_alarm.add_alarm_action(SnsAction(self.sns_topic))
