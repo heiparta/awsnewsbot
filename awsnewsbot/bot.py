@@ -13,6 +13,8 @@ import logging
 def init_logging() -> logging.Logger:
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
+    logging.getLogger("boto3").setLevel(logging.WARNING)
+    logging.getLogger("boto-core").setLevel(logging.WARNING)
     return logger
 
 
