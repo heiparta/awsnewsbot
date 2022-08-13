@@ -57,7 +57,7 @@ class BotStack(Stack):
         self.rule = Rule(
             self,
             "BotSchedule",
-            schedule=Schedule.cron(minute="0/30", hour="04-20"),
+            schedule=Schedule.cron(minute="42", hour="0/2"),
             targets=[lambda_target],
         )
 

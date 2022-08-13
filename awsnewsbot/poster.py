@@ -21,7 +21,7 @@ class Poster:
             if len(entries) > 1:
                 thread_suffix = f" {i}/{len(entries)}"
             payload: Dict[str, Any] = {
-                "text": f"{entry['title']} {entry['link']}{thread_suffix}",
+                "text": f"{entry['title']} {entry['link']}{thread_suffix} #aws",
             }
             if root_post_id:
                 payload["reply"] = {

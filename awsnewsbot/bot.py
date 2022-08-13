@@ -44,7 +44,7 @@ class Bot:
             new_entries = self.feed.entries
         else:
             new_entries = [e for e in self.feed.entries if e["published"] > latest["published"]]
-        new_entries = new_entries[:10]
+        new_entries = new_entries[:2]
 
         # Post new entries
         self.poster.post_entries(new_entries)
