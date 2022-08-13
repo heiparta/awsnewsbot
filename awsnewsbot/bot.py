@@ -11,10 +11,17 @@ import logging
 
 
 def init_logging() -> logging.Logger:
+    log_level = logging.DEBUG
+    logging.basicConfig(level=log_level, force=True)
     logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
-    logging.getLogger("boto3").setLevel(logging.WARNING)
-    logging.getLogger("boto-core").setLevel(logging.WARNING)
+
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    for handler in logger.handlers:
+        handler.setFormatter(formatter)
+
+    logging.getLogger("boto3").setLevel(logging.WARN)
+    logging.getLogger("botocore").setLevel(logging.WARN)
+    logging.getLogger("urllib3").setLevel(logging.WARN)
     return logger
 
 
@@ -35,6 +42,7 @@ class Bot:
         self.feed = feed
         self.db = db
         self.poster = poster
+        self.logger = logging.getLogger("bot.py")
 
     def run(self) -> None:
         # Get latest entry
@@ -45,6 +53,7 @@ class Bot:
         else:
             new_entries = [e for e in self.feed.entries if e["published"] > latest["published"]]
         new_entries = new_entries[:2]
+        self.logger.info(f"Got {len(new_entries)} new posts")
 
         # Post new entries
         self.poster.post_entries(new_entries)

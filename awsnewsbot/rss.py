@@ -1,8 +1,10 @@
+import logging
 from time import mktime
 from typing import List, TypedDict
 
 import feedparser
 
+logger =  logging.getLogger(__name__)
 
 class FeedEntry(TypedDict, total=False):
     id: str
