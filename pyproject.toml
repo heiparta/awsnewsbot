@@ -10,7 +10,7 @@ bot = "awsnewsbot.bot:main"
 bot_lambda = "awsnewsbot.bot:handler"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.12"
 feedparser = "^6.0.8"
 aws-cdk-lib = "^2.17.0"
 requests-oauthlib = "^1.3.1"
@@ -18,13 +18,13 @@ constructs = "^10.0.104"
 awscli = "^1.22.87"
 boto3 = "^1.21.32"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
+types-requests = "^2.32.4.20250611"
 pytest = "^7.1.1"
 mypy = "^0.941"
 flake8 = "^4.0.1"
 isort = "^5.10.1"
 black = "^22.1.0"
-types-requests = "^2.27.16"
 boto3-stubs = "^1.21.32"
 autopep8 = "^1.6.0"
 
