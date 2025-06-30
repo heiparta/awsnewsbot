@@ -2,7 +2,6 @@ __pycache__
 *.pyc
 *env.sh
 *.swp
-package-lock.json
 
 .pytest_cache
 .venv
