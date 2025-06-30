@@ -2,6 +2,7 @@ import aws_cdk as cdk
 from aws_cdk import (
     Stack,
 )
+from aws_cdk.aws_cloudwatch import TreatMissingData
 from aws_cdk.aws_cloudwatch_actions import SnsAction
 from aws_cdk.aws_lambda import Function, AssetCode, Runtime
 from aws_cdk.aws_iam import PolicyStatement, Effect
@@ -69,5 +70,7 @@ class BotStack(Stack):
             "LambdaErrorAlarm",
             evaluation_periods=3,
             threshold=1,
+            treat_missing_data=TreatMissingData.NOT_BREACHING,
         )
         self.errors_alarm.add_alarm_action(SnsAction(self.sns_topic))
+        self.errors_alarm.add_ok_action(SnsAction(self.sns_topic))
