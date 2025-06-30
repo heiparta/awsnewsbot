@@ -23,7 +23,7 @@ class BotStack(Stack):
         self.bot = Function(
             self, "Botfunction",
             code=asset,
-            runtime=Runtime.PYTHON_3_9,
+            runtime=Runtime.PYTHON_3_12,
             handler="awsnewsbot.bot.handler",
             environment=dict(
                 FEED_ID=config["feed_id"],
